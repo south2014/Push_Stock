@@ -63,6 +63,44 @@
 
 ---
 
+## 🧪 测试状态
+
+### 已创建测试代码
+```
+✅ tests/conftest.py              - pytest全局配置
+✅ tests/unit/test_parser.py      - 解析器单元测试 (14个测试用例)
+✅ tests/integration/test_e2e.py  - 端到端集成测试
+✅ test_quick.py                  - 快速验证脚本 (无需pytest)
+```
+
+### ⚠️ 测试运行前置条件
+**必须先安装依赖才能运行测试:**
+```bash
+pip install -r requirements.txt
+```
+
+### 运行测试
+```bash
+# 方法1: 快速验证 (不依赖pytest)
+python test_quick.py
+
+# 方法2: pytest完整测试
+python -m pytest tests/ -v
+
+# 方法3: 带覆盖率报告
+python -m pytest tests/ --cov=src --cov-report=html
+```
+
+### 测试覆盖率统计
+| 模块 | 覆盖率 | 状态 |
+|------|--------|------|
+| parser.py | 待测试 | ⏳ |
+| wechat_bot.py | 待测试 | ⏳ |
+| file_monitor.py | 待测试 | ⏳ |
+| database_service.py | 待测试 | ⏳ |
+
+---
+
 ## ⏳ 待开发模块 (Phase 4)
 
 ### Phase 4: Vue.js前端 (预计5天)
