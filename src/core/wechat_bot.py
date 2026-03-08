@@ -236,6 +236,9 @@ class WeChatBot:
         Raises:
             WeChatAPIException: API返回错误
         """
+        # 调试：打印URL
+        logger.info(f"Sending to: {self.webhook_url[:50]}...")
+        
         response = requests.post(
             self.webhook_url,
             json=data,
@@ -243,10 +246,13 @@ class WeChatBot:
             timeout=self.TIMEOUT
         )
         
+        # 调试：打印响应
+        logger.info(f"Response: status={response.status_code}, body={response.text}")
+        
         result = response.json()
         
         if result.get("errcode") == 0:
-            logger.debug(f"发送成功: {data.get('msgtype')}")
+            logger.info(f"发送成功: {data.get('msgtype')}")
             return True
         
         # API返回错误
