@@ -25,7 +25,7 @@ aiofiles==23.2.1
 loguru==0.7.2
 
 # Windows Service
-pywin32==306
+pywin32==311
 
 # Utilities
 python-dotenv==1.0.0
