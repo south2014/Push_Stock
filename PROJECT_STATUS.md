@@ -94,10 +94,31 @@ python -m pytest tests/ --cov=src --cov-report=html
 ### 测试覆盖率统计
 | 模块 | 覆盖率 | 状态 |
 |------|--------|------|
-| parser.py | 待测试 | ⏳ |
-| wechat_bot.py | 待测试 | ⏳ |
-| file_monitor.py | 待测试 | ⏳ |
-| database_service.py | 待测试 | ⏳ |
+| parser.py | ✅ 通过 | 解析器工作正常 |
+| exceptions.py | ✅ 通过 | 异常体系完整 |
+| constants.py | ✅ 通过 | 常量定义正确 |
+| wechat_bot.py | ⏳ 待测试 | 需要真实Webhook |
+| file_monitor.py | ⏳ 待测试 | 需要实际文件操作 |
+| database_service.py | ⏳ 待测试 | 需要SQLite数据库 |
+
+### ✅ 快速测试已通过！
+```bash
+$ python test_quick.py
+
+=== 测试股票解析器 ===
+[PASS] 解析成功: 600176 中国巨石 28.10
+[PASS] 多行解析成功: 2条信号
+
+=== 测试异常体系 ===
+[PASS] ParserException工作正常: -300
+[PASS] PushException工作正常: -402
+
+=== 测试常量定义 ===
+[PASS] 常量定义正确: Push_Stock, 重试3次
+
+总计: 3/3 项通过
+[SUCCESS] 所有测试通过！代码基本可用。
+```
 
 ---
 
