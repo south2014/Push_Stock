@@ -23,18 +23,18 @@ def test_parser():
         signal = parser.parse_line(line)
         
         if signal is None:
-            print("❌ 解析失败: 返回None")
+            print("[FAIL] 解析失败: 返回None")
             return False
         
         if signal.stock_code != "600176":
-            print(f"❌ 股票代码错误: {signal.stock_code}")
+            print(f"[FAIL] 股票代码错误: {signal.stock_code}")
             return False
         
         if signal.stock_name != "中国巨石":
-            print(f"❌ 股票名称错误: {signal.stock_name}")
+            print(f"[FAIL] 股票名称错误: {signal.stock_name}")
             return False
         
-        print(f"✅ 解析成功: {signal.stock_code} {signal.stock_name} ¥{signal.price}")
+        print(f"[PASS] 解析成功: {signal.stock_code} {signal.stock_name} {signal.price}")
         
         # 测试2: 多行解析
         content = """600176\t中国巨石\t2026-03-02 11:21\t28.10\t 3.92%\t69\tBBIHTM_G
@@ -43,14 +43,14 @@ def test_parser():
         signals = parser.parse_lines(content)
         
         if len(signals) != 2:
-            print(f"❌ 多行解析错误: 期望2条，实际{len(signals)}条")
+            print(f"[FAIL] 多行解析错误: 期望2条，实际{len(signals)}条")
             return False
         
-        print(f"✅ 多行解析成功: {len(signals)}条信号")
+        print(f"[PASS] 多行解析成功: {len(signals)}条信号")
         return True
         
     except Exception as e:
-        print(f"❌ 解析器测试失败: {e}")
+        print(f"[FAIL] 解析器测试失败: {e}")
         import traceback
         traceback.print_exc()
         return False
@@ -67,18 +67,18 @@ def test_exceptions():
         try:
             raise ParserException("测试错误", code=ParserException.INVALID_FORMAT)
         except ParserException as e:
-            print(f"✅ ParserException工作正常: {e.code}")
+            print(f"[PASS] ParserException工作正常: {e.code}")
         
         # 测试PushException
         try:
             raise PushException("网络错误", code=PushException.NETWORK_ERROR)
         except PushException as e:
-            print(f"✅ PushException工作正常: {e.code}")
+            print(f"[PASS] PushException工作正常: {e.code}")
         
         return True
         
     except Exception as e:
-        print(f"❌ 异常测试失败: {e}")
+        print(f"[FAIL] 异常测试失败: {e}")
         return False
 
 
@@ -90,18 +90,18 @@ def test_constants():
         from src.constants import PROJECT_NAME, DEFAULT_RETRY_COUNT, STOCK_CODE_PATTERN
         
         if PROJECT_NAME != "Push_Stock":
-            print(f"❌ 项目名称错误: {PROJECT_NAME}")
+            print(f"[FAIL] 项目名称错误: {PROJECT_NAME}")
             return False
         
         if DEFAULT_RETRY_COUNT != 3:
-            print(f"❌ 重试次数错误: {DEFAULT_RETRY_COUNT}")
+            print(f"[FAIL] 重试次数错误: {DEFAULT_RETRY_COUNT}")
             return False
         
-        print(f"✅ 常量定义正确: {PROJECT_NAME}, 重试{DEFAULT_RETRY_COUNT}次")
+        print(f"[PASS] 常量定义正确: {PROJECT_NAME}, 重试{DEFAULT_RETRY_COUNT}次")
         return True
         
     except Exception as e:
-        print(f"❌ 常量测试失败: {e}")
+        print(f"[FAIL] 常量测试失败: {e}")
         return False
 
 
@@ -122,7 +122,7 @@ def main():
     print("=" * 50)
     
     for name, result in results:
-        status = "✅ 通过" if result else "❌ 失败"
+        status = "[PASS]" if result else "[FAIL]"
         print(f"{name}: {status}")
     
     passed = sum(1 for _, r in results if r)
@@ -131,10 +131,10 @@ def main():
     print(f"\n总计: {passed}/{total} 项通过")
     
     if passed == total:
-        print("\n🎉 所有测试通过！代码基本可用。")
+        print("\n[SUCCESS] 所有测试通过！代码基本可用。")
         return 0
     else:
-        print(f"\n⚠️ {total - passed} 项测试失败，需要修复。")
+        print(f"\n[WARNING] {total - passed} 项测试失败，需要修复。")
         return 1
 
 

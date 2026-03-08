@@ -8,12 +8,14 @@ from decimal import Decimal
 from typing import Optional
 
 from sqlalchemy import (
+    Column,
     Index,
     Integer,
     Numeric,
     String,
     Text,
     UniqueConstraint,
+    text,
 )
 
 from src.models.base import BaseModel
@@ -139,10 +141,10 @@ class PushRecord(BaseModel):
             "trigger_time",
             name="unique_signal"
         ),
-        Index("idx_trigger_time", "trigger_time", descending=True),
+        Index("idx_trigger_time", text("trigger_time DESC")),
         Index("idx_stock_code", "stock_code"),
         Index("idx_status", "status"),
-        Index("idx_created_at", "created_at", descending=True),
+        Index("idx_created_at", text("created_at DESC")),
     )
     
     def __init__(
