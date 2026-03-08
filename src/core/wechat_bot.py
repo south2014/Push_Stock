@@ -12,7 +12,7 @@ import asyncio
 import json
 from typing import Optional
 
-import httpx
+import requests
 
 from src.config import get_config
 from src.constants import WECHAT_WEBHOOK_PREFIX
@@ -236,26 +236,26 @@ class WeChatBot:
         Raises:
             WeChatAPIException: API返回错误
         """
-        async with httpx.AsyncClient(timeout=self.TIMEOUT) as client:
-            response = await client.post(
-                self.webhook_url,
-                json=data,
-                headers={"Content-Type": "application/json"}
-            )
-            
-            result = response.json()
-            
-            if result.get("errcode") == 0:
-                logger.debug(f"发送成功: {data.get('msgtype')}")
-                return True
-            
-            # API返回错误
-            raise WeChatAPIException(
-                message=f"微信API错误: {result.get('errmsg', '未知错误')}",
-                errcode=result.get("errcode", -1),
-                errmsg=result.get("errmsg", ""),
-                webhook_url=self.webhook_url
-            )
+        response = requests.post(
+            self.webhook_url,
+            json=data,
+            headers={"Content-Type": "application/json"},
+            timeout=self.TIMEOUT
+        )
+        
+        result = response.json()
+        
+        if result.get("errcode") == 0:
+            logger.debug(f"发送成功: {data.get('msgtype')}")
+            return True
+        
+        # API返回错误
+        raise WeChatAPIException(
+            message=f"微信API错误: {result.get('errmsg', '未知错误')}",
+            errcode=result.get("errcode", -1),
+            errmsg=result.get("errmsg", ""),
+            webhook_url=self.webhook_url
+        )
     
     def get_stats(self) -> dict:
         """获取发送统计.
