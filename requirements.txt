@@ -1,3 +1,42 @@
-# 在此添加项目依赖，例如:
-# requests>=2.30.0
-# pandas>=2.0.0
+# Push_Stock Python Dependencies
+# Install: pip install -r requirements.txt
+
+# Web Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+
+# Database
+sqlalchemy==2.0.23
+
+# Configuration
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# File Monitoring
+watchdog==3.0.0
+
+# HTTP Client
+httpx==0.25.2
+
+# Async Support
+aiofiles==23.2.1
+
+# Logging
+loguru==0.7.2
+
+# Windows Service
+pywin32==306
+
+# Utilities
+python-dotenv==1.0.0
+psutil==5.9.6
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0
+
+# Code Quality
+black==23.11.0
+flake8==6.1.0
+mypy==1.7.1
